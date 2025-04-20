@@ -1,1 +1,2 @@
-<app-sidenav-util></app-sidenav-util>
+<app-sidenav-util *ngIf="!isHandset"></app-sidenav-util>
+<app-bottombar *ngIf="isHandset"></app-bottombar>

@@ -1,0 +1,27 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #213448;
+
+  .form-container {
+    width: fit-content;
+    height: 50%;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+
+    .login-card {
+      background-color: #547792;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  // Media query para pantallas pequeñas
+  @media (max-width: 600px) {
+    height: 70vh;
+  }
+}
