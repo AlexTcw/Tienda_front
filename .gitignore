@@ -1,42 +1,51 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
-
-# Compiled output
+# Angular build output
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/.angular/cache
+/coverage
 
-# Node
+# Node dependencies
 /node_modules
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
 
 # IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+.idea/             # IntelliJ IDEA project settings
+*.iml              # IntelliJ IDEA module files
+.vscode/           # VS Code settings (comenta si usas ambos editores)
 
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+# Optional: Keep useful VSCode files if needed
+#!.vscode/settings.json
+#!.vscode/tasks.json
+#!.vscode/launch.json
+#!.vscode/extensions.json
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
+# OS generated files
 .DS_Store
 Thumbs.db
+
+# Logs and temp
+*.log
+/connect.lock
+/libpeerconnection.log
+testem.log
+
+# Test coverage
+/.nyc_output
+
+# Sass cache
+.sass-cache/
+
+# Other
+.c9/
+*.launch
+.project
+.classpath
+.settings/
+*.sublime-workspace
+.history/
