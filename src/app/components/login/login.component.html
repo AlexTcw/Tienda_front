@@ -1,34 +1,36 @@
 <div class="main-container">
-  <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="form-container">
-    <mat-card class="login-card">
-      <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
-      </mat-card-header>
-      <br/>
-      <mat-card-content>
-        <mat-form-field appearance="fill">
-          <mat-label>Username</mat-label>
-          <input matInput type="text" name="username" [(ngModel)]="username" required>
-          <mat-error *ngIf="usernameFormControl.hasError('required')">Username is <strong>required</strong></mat-error>
-          <button *ngIf="username" matSuffix mat-icon-button aria-label="Clear" (click)="username=''">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-        <br/>
-        <mat-form-field appearance="fill">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" name="password" [(ngModel)]="password" required>
-          <mat-error *ngIf="passwordFormControl.hasError('required')">Password is <strong>required</strong></mat-error>
-          <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="password=''">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" type="submit">SUBMIT</button>
-      </mat-card-actions>
-      <br/>
-    </mat-card>
-  </form>
+  <div class="side-container">
+    <img ngSrc="assets/Mix-up.png" alt="mix-up-logo" height="1536" width="1024">
+  </div>
+  <div class="content-container">
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="form-container">
+      <h1 style="font-size: xxx-large">Login</h1>
 
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" name="username" [(ngModel)]="username" #usernameModel="ngModel" required>
+        <button *ngIf="username" matSuffix mat-icon-button aria-label="Clear" (click)="username=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="usernameModel.invalid && usernameModel.touched">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" name="password" [(ngModel)]="password" #passwordModel="ngModel" required>
+        <button *ngIf="password" matSuffix mat-icon-button aria-label="Clear" (click)="password=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error *ngIf="passwordModel.invalid && passwordModel.touched">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+        Iniciar sesión
+      </button>
+    </form>
+  </div>
 </div>

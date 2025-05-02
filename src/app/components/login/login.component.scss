@@ -1,28 +1,42 @@
 .main-container {
+  background: #a76545;
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
-  background: #d1c4e9;
+  width: 100%;
 
-  .form-container {
-    width: fit-content;
-    height: 50%;
-    align-content: center;
-    justify-content: center;
+  .side-container {
+    width: 70%;
+    background: #fba057;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
 
-    .login-card {
-      background-color: #e2e8f0;
-      align-content: center;
-      justify-content: center;
-      align-items: center;
-      width: fit-content;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+  .content-container {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: #b9568b;
+    box-shadow: 12px 0 15px 20px rgba(0, 0, 0, 0.5);
+
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
     }
   }
 
-  // Media query para pantallas pequeñas
-  @media (max-width: 600px) {
-    height: 70vh;
-  }
 }

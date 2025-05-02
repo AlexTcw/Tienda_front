@@ -82,7 +82,10 @@ export class InventoryComponent implements OnInit {
       componentRef.instance.stock = product.stock;
       componentRef.instance.brand = product.brand;
       componentRef.instance.sku = product.sku;
+      componentRef.instance.image = product.image || 'assets/arete-example.webp';
+      componentRef.instance.description = product.description || '';
     });
+
   }
 
 }

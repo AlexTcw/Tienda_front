@@ -3,44 +3,31 @@ import {Component, Input} from '@angular/core';
 @Component({
   selector: 'app-dynamic-card',
   template: `
-    <div class="product-container"
-         style="position: relative; display: flex; flex-direction: row; align-items: center;
-         justify-content: space-between;">
-      <div [ngStyle]="{
-    'background-color': color,
-    'width': '150px',
-    'height': '150px',
-    'border-radius': '8px',
-    'box-shadow': '5px 5px 5px black',
-    'margin-right': '15px',
-    'display': 'flex',
-    'justify-content': 'center',
-    'align-items': 'center',
-    'overflow': 'hidden',
-    'margin-bottom': '10px',
-  }">
-        <img [src]="'assets/' + image" alt="product_image"
-             style="max-width: 80%; max-height: 80%; object-fit: contain;
-         border-radius: 10px; box-shadow: 3px 3px 3px black;">
+    <div class="card" [ngStyle]="{ 'background-color': color,
+    'display': 'flex', 'padding': '10px', 'margin-top':'10px', 'border-radius': '10px',
+    'box-shadow': '2px 2px 4px #000000'}">
+      <div class="img-container">
+        <img [src]="image" alt="{{ title }}"  style="border-radius: 10px; width: 7rem; align-content: center" />
       </div>
-      <div style="display: flex; flex-direction: column; width: 80%">
-        <div style="font-size: 16px; margin-bottom: 5px;">
-          {{ title }}
+      <div class="card-content" style="margin-left: 20px; width: 70%">
+        <h3>{{ title }}</h3>
+        <div class="tag-container" style="display: flex; flex-direction: row">
+          <p><strong>SKU:</strong> {{ sku }}</p>
+          <p style="margin-left: 20px"><strong>Marca:</strong> {{ brand }}</p>
+          <p style="margin-left: 20px"><strong>Stock:</strong> {{ stock }}</p>
         </div>
-        <div style="font-size: 18px; display: flex; flex-direction: row; margin-left: 10px">
-          <div style="display: flex; flex-direction: column; margin-left: 20px; align-items: center">
-            <mat-label>SKU: </mat-label>
-            <div>{{ sku }}</div>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; margin-left: 20px">
-            <mat-label>Brand: </mat-label>
-            <div>{{ brand }}</div>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center; margin-left: 20px">
-            <mat-label>Stock: </mat-label>
-            <div>{{ stock }}</div>
-          </div>
-        </div>
+        <p>{{ description }}</p></div>
+      <div class = "button-container" style="margin-left: 20px; align-content: center">
+        <button mat-fab aria-label="edit product"
+                style="margin-left: 10px; width: 56px; height: 56px; border-radius: 6px; background-color: #4CAF50; color: white;">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-fab aria-label="delete product"
+                style="margin-left: 10px; width: 56px; height: 56px; border-radius: 6px; background-color: #F44336; color: white;">
+          <mat-icon>delete</mat-icon>
+        </button>
+
       </div>
     </div>
   `,
@@ -49,9 +36,11 @@ import {Component, Input} from '@angular/core';
 export class DynamicCardInventory {
   @Input() title: string = '';
   @Input() color: string = '#333';
-  @Input() image: string = "example.jpg";
+  @Input() image: string = 'example.jpg';
   @Input() sku: string = 'Sku';
   @Input() description: string = '';
   @Input() brand: string = '';
   @Input() stock: number = 0;
 }
+
+
