@@ -4,8 +4,10 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
 interface LoginResponse {
-  jwtToken: string;
+  jwtToken: string,
+  userId:number
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,20 +23,27 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.authPath}/login`, body)
   }
 
-  saveToken(token:string) {
+  saveLoginData(token: string, userId: number): void {
     localStorage.setItem("authToken", token);
+    localStorage.setItem("userId", userId.toString());
   }
 
   getToken(): string | null {
     return localStorage.getItem("authToken");
   }
 
+  getUserId(): number | null {
+    const id = localStorage.getItem("userId");
+    return id ? parseInt(id, 10) : null;
+  }
+
   isLoggedIn():boolean {
     return this.getToken() !== null;
   }
 
-  logout():void {
+  logout(): void {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("userId");
   }
 
 }
