@@ -27,8 +27,15 @@ import {DynamicCardComponent} from "./model/DynamicCardComponent";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { CartComponent } from './components/cart/cart.component';
 import {DynamicCardInventory} from "./model/DynamicCardInventory";
-import { RefillComponent } from './components/refill/refill.component';
 import { KpisComponent } from './components/kpis/kpis.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { EditProductDialogComponent } from './components/dialog/edit-product-dialog/edit-product-dialog.component';
+import { RefillProductDialogComponent } from './components/dialog/refill-product-dialog/refill-product-dialog.component';
+import { AddProductDialogComponent } from './components/dialog/add-product-dialog/add-product-dialog.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { CreateCartDialogComponent } from './components/dialog/create-cart-dialog/create-cart-dialog.component';
+import {DynamicCardCartComponent} from "./model/DynamicCardCartComponent";
 
 @NgModule({
   declarations: [
@@ -45,26 +52,33 @@ import { KpisComponent } from './components/kpis/kpis.component';
     DynamicCardComponent,
     CartComponent,
     DynamicCardInventory,
-    RefillComponent,
-    KpisComponent
+    KpisComponent,
+    EditProductDialogComponent,
+    RefillProductDialogComponent,
+    AddProductDialogComponent,
+    CreateCartDialogComponent,
+    DynamicCardCartComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        MatCardModule,
-        MatChipsModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatButtonToggleModule,
-        NgOptimizedImage,
-        MatPaginatorModule,
-        MatChipsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    MatCardModule,
+    MatChipsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatButtonToggleModule,
+    NgOptimizedImage,
+    MatPaginatorModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

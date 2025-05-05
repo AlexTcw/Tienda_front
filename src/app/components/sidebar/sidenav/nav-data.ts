@@ -10,11 +10,6 @@ export const navBarData = [
     label:'Inventory'
   },
   {
-    routerLink: 'refill',
-    icon: 'production_quantity_limits',
-    label:'Refill'
-  },
-  {
     routerLink: 'kpis',
     icon: 'trending_up',
     label:'KPIS'

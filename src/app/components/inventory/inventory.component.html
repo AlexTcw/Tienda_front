@@ -3,11 +3,13 @@
     <h1>ARETITOS</h1>
     <input matInput placeholder="   Search" id="search-product" type="search" name="search-product"
            [(ngModel)]="searchText" (ngModelChange)="onSearchChange(searchText)" />
-
-
   </div>
   <!-- Este es el contenedor donde se inyectará el contenido dinámico -->
   <div class="body-container">
     <ng-template #container></ng-template>
   </div>
+
+  <button mat-fab color="primary" class="floating-button" (click)="addProduct()">
+    <mat-icon>add</mat-icon>
+  </button>
 </div>

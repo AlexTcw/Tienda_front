@@ -8,4 +8,11 @@
   <div class="body-container">
     <ng-template #container></ng-template>
   </div>
+
+  <button mat-fab color="warn" (click)="openCreateCartDialog()"
+          class="floating-button" matTooltip="Revisar el carrito">
+    <mat-icon>shopping_cart</mat-icon>
+    <span class="item-count">{{ countItems }}</span>
+  </button>
+
 </div>

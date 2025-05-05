@@ -2,6 +2,11 @@ import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef
 import {DomSanitizer} from '@angular/platform-browser';
 import {DynamicCardComponent} from "../../model/DynamicCardComponent";
 import {ProductsService} from "../../services/products.service";
+import {Router} from "@angular/router";
+import {EditProductDialogComponent} from "../dialog/edit-product-dialog/edit-product-dialog.component";
+import {DialogRef} from "@angular/cdk/dialog";
+import {MatDialog} from "@angular/material/dialog";
+import {CreateCartDialogComponent} from "../dialog/create-cart-dialog/create-cart-dialog.component";
 
 @Component({
   selector: 'app-products',
@@ -11,35 +16,33 @@ import {ProductsService} from "../../services/products.service";
 export class ProductsComponent implements OnInit {
 
   @ViewChild('container', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
-
-  htmlContent: any;
-  card_generated: string = `
-    <mat-card class="card-button-example">
-      <mat-card-content>
-        <button mat-raised-button>New</button>
-      </mat-card-content>
-    </mat-card>
-  `;
   productList:any[] = [];
   searchText: string = '';
+  countItems: number = 0;
+  cart: { value1: number, value2: number, name: string, price: number }[] = [];
 
-  constructor(private sanitizer: DomSanitizer,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              private productService:ProductsService) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private productService:ProductsService,
+              private router: Router,
+              private dialog:MatDialog) { }
 
   ngOnInit(): void {
     // Sanitizar el HTML generado
-    this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(this.card_generated);
     this.getAllProducts('');
     this.insertDynamicCard();
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      const parsedCart = JSON.parse(savedCart);
+      this.cart = parsedCart.products || [];
+    }
+//    this.getAllProducts('');
+    //this.openCreateCartDialog()
   }
 
   onSearchChange(value: string) {
     this.getAllProducts(value);
     this.insertDynamicCard();
   }
-
-
 
   getAllProducts(keyword:string) {
     return this.productService.findProductByKeyWord(keyword).subscribe({
@@ -60,7 +63,6 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-
   generatePastelColor() {
     const hue = Math.floor(Math.random() * 360); // tono aleatorio
     const saturation = 60 + Math.random() * 20; // 60% a 80% saturación
@@ -68,7 +70,6 @@ export class ProductsComponent implements OnInit {
 
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
-
 
   insertDynamicCard() {
     const cardFactory = this.componentFactoryResolver.resolveComponentFactory(DynamicCardComponent);
@@ -79,12 +80,47 @@ export class ProductsComponent implements OnInit {
       componentRef.instance.title = product.name;
       componentRef.instance.price = product.price;
       componentRef.instance.color = this.generatePastelColor();
+      componentRef.instance.stock = product.stock;
+      componentRef.instance.id = product.productID;
+
+      componentRef.instance.addClicked.subscribe((productId: number) => {
+        this.addToCart(Number(productId), String(product.name), Number(product.price));
+      });
     });
   }
 
+  addToCart(id: number, name: string, price: number) {
+    const existingProduct = this.cart.find(p => p.value1 === id);
+    if (existingProduct) {
+      existingProduct.value2 += 1;
+    } else {
+      this.cart.push({ value1: id, value2: 1, name:name, price: price });
+    }
 
-  addToCart(product:any) {
-    localStorage.setItem("cartItems", JSON.stringify(product));
+    const consumeCart = {
+      userId: localStorage.getItem("userId"),
+      products: this.cart
+    };
+
+    // Guardar en localStorage
+    localStorage.setItem('cart', JSON.stringify(consumeCart));
+
+    console.log('Carrito actualizado:', this.cart);
+    this.countItems = this.cart.reduce((total, item) => total + item.value2, 0);
   }
 
+  goToCart() {
+    this.router.navigate(['/home/cart']).then(() => {});
+  }
+
+  openCreateCartDialog() {
+    const dialogRef = this.dialog.open(CreateCartDialogComponent, {
+      width: '400px',
+      position: { bottom: '10px', right: '10px' },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }
 }

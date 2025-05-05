@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {FF_MINUS} from "@angular/cdk/keycodes";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-dynamic-card',
@@ -24,11 +23,20 @@ import {FF_MINUS} from "@angular/cdk/keycodes";
       <div style=" font-size: 16px; margin-bottom: 5px;">
         {{ title }}
       </div>
-      <div style="font-size: 18px; margin-bottom: 10px;">
+      <div style="font-size: 18px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center;">
         $ {{ price }} MXN
-        <button style="margin-left: 40px" mat-raised-button color="primary">
+        <button style="margin-left: 40px" mat-raised-button
+                [disabled]="stock === 0"
+                color="primary"
+                (click)="onAddClick()">
           <span style="margin-right: 5px;">🛍</span> Add
         </button>
+        <mat-icon
+          *ngIf="stock === 0"
+          style="color: black; margin-left: 10px"
+          matTooltip="No quedan existencias del producto">
+          warning
+        </mat-icon>
       </div>
     </div>
 
@@ -36,8 +44,16 @@ import {FF_MINUS} from "@angular/cdk/keycodes";
   styleUrls: ['../components/products/products.component.scss']
 })
 export class DynamicCardComponent {
+  @Input() id: number = 0;
   @Input() title: string = '';
   @Input() price: number = 0;
   @Input() color: string = '#333';
   @Input() image: string = "example.jpg";
+  @Input() stock: number = 0;
+
+  @Output() addClicked = new  EventEmitter<number>();
+
+  onAddClick(){
+    this.addClicked.emit(Number(this.id));
+  }
 }

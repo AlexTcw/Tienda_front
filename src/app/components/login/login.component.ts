@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {FormControl, Validators} from "@angular/forms";
@@ -8,7 +8,7 @@ import {FormControl, Validators} from "@angular/forms";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   value:string = 'Clear me';
   username: string = '';
@@ -17,6 +17,10 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+        localStorage.clear()
+    }
+
   usernameFormControl = new FormControl('', [Validators.required]);
   passwordFormControl = new FormControl('', [Validators.required]);
 
@@ -24,7 +28,7 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(
       {
         next:(response) => {
-          this.authService.saveToken(response.jwtToken)
+          this.authService.saveLoginData(response.jwtToken,response.userId)
           this.router.navigate(['/']).then(() => null);
         },
         error: error => {

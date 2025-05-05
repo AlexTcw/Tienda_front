@@ -10,7 +10,7 @@ export class CartComponent implements OnInit {
     cardItems: Array<any> = [];
 
     ngOnInit(): void {
-        throw new Error('Method not implemented.');
+        
     }
 
     deleteItems(){
@@ -18,16 +18,7 @@ export class CartComponent implements OnInit {
       this.ngOnInit()
     }
 
-    deleteItem(item:number){
-      const items = localStorage.getItem("cartItems")
-      this.ngOnInit()
-    }
 
-    getCartItems(): void{
-      const items = localStorage.getItem("cartItems")
-      if (items != null){
-      }
-    }
 
 
 
