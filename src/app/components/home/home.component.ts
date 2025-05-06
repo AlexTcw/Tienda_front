@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-        this.router.navigate(['/home/products']).then(() => null)
+        this.router.navigate(['/home/cart']).then(() => null)
     }
 
 

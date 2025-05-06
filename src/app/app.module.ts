@@ -36,6 +36,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { CreateCartDialogComponent } from './components/dialog/create-cart-dialog/create-cart-dialog.component';
 import {DynamicCardCartComponent} from "./model/DynamicCardCartComponent";
+import {DynamicCardCartsComponent} from "./model/DynamicCardCartsComponent";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {DynamicCardCartComponent} from "./model/DynamicCardCartComponent";
     AddProductDialogComponent,
     CreateCartDialogComponent,
     DynamicCardCartComponent,
+    DynamicCardCartsComponent
   ],
   imports: [
     BrowserModule,

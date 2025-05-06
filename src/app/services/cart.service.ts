@@ -15,4 +15,8 @@ export class CartService {
   createCart(data: any): Observable<any> {
     return this.http.post<any>(`${this.cartPath}`, data);
   }
+
+  findCartByKeyword(keyword:string): Observable<any> {
+    return this.http.get<any>(`${this.cartPath}/search/${keyword}`);
+  }
 }
